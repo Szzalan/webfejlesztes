@@ -7,6 +7,9 @@ import com.zalan.webfejlesztes.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
@@ -15,9 +18,12 @@ public class GameServiceImpl implements GameService {
     private final GameRepository gameRepository;
 
     @Override
-    public GameDto saveGame(GameDto game) {
-        Game savedGame = gameRepository.save(gameMapper.mapGameDtoToGameEntity(game));
+    public void saveGame(GameDto game) {
+        gameRepository.save(gameMapper.mapGameDtoToGameEntity(game));
+    }
 
-        return gameMapper.mapGameEntityToGameDto(savedGame);
+    @Override
+    public List<GameDto> getAllGames() {
+        return gameRepository.findAll().stream().map(gameMapper::mapGameEntityToGameDto).collect(Collectors.toList());
     }
 }

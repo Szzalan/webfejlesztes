@@ -6,20 +6,24 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/games")
 @RequiredArgsConstructor
 public class GameController {
 
-    @Autowired
     private final GameService gameService;
+
     @PostMapping("/createGame")
-    public ResponseEntity<GameDto> saveGame(@Valid @RequestBody GameDto gameDto) {
-        return ResponseEntity.ok().body(gameService.saveGame(gameDto));
+    public ResponseEntity<String> saveGame(@Valid @RequestBody GameDto gameDto) {
+        gameService.saveGame(gameDto);
+        return ResponseEntity.ok().body("Game successfully saved");
+    }
+    @GetMapping("/getAllGames")
+    public ResponseEntity<List<GameDto>> getAllGames(){
+        return ResponseEntity.ok().body(gameService.getAllGames());
     }
 }
