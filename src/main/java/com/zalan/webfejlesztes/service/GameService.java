@@ -7,4 +7,7 @@ import java.util.List;
 public interface GameService {
     void saveGame(GameDto game);
     List<GameDto> getAllGames();
+    void deleteGame(Long id);
+
+    void updateGame(Long id, int price);
 }

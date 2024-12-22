@@ -26,4 +26,14 @@ public class GameController {
     public ResponseEntity<List<GameDto>> getAllGames(){
         return ResponseEntity.ok().body(gameService.getAllGames());
     }
+    @DeleteMapping("/deleteGameById/{id}")
+    public ResponseEntity<String> deleteGame(@PathVariable Long id) {
+        gameService.deleteGame(id);
+        return ResponseEntity.ok().body("Game successfully deleted");
+    }
+    @PutMapping("/updateGameById/{id}")
+    public ResponseEntity<String> setPrice(@PathVariable Long id, @Valid @RequestBody int price) {
+        gameService.updateGame(id, price);
+        return ResponseEntity.ok().body("Price successfully updated");
+    }
 }

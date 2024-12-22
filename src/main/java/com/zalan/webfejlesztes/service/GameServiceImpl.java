@@ -26,4 +26,14 @@ public class GameServiceImpl implements GameService {
     public List<GameDto> getAllGames() {
         return gameRepository.findAll().stream().map(gameMapper::mapGameEntityToGameDto).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteGame(Long id) {
+        gameRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateGame(Long id, int price) {
+        gameRepository.updatePriceById(id, price);
+    }
 }
